@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { UserListContext } from "../context/AppContext";
+import { Link } from "react-router";
 
 const Childrens = () => {
 
@@ -10,7 +11,7 @@ const Childrens = () => {
             <p className="mb-0 text-end fst-italic">Component 2</p>
             <h4 className="text-center pb-3">Childrens</h4>
             <ul className="list-unstyled">
-                {users.map(user => <li className="py-1" key={user.id}>{user.name}, {user.username}</li>)}
+                {users.map(user => <li className="py-1" key={user.id}><Link to={`/users/${user.id}`}>{user.name}</Link></li>)}
             </ul>
         </div>
     )
