@@ -1,5 +1,5 @@
 import './App.css'
-import { Route, Routes, NavLink, useNavigate } from 'react-router'
+import { Route, Routes, NavLink, useNavigate, Navigate } from 'react-router'
 import { useState } from 'react'
 import Home from './pages/Home'
 import About from './pages/About'
@@ -25,7 +25,16 @@ function App() {
         <li className="nav-item"><NavLink className="nav-link" to="/about">About</NavLink></li>
         <li className="nav-item"><NavLink className="nav-link" to="/contact">Contact</NavLink></li>
         <li className="nav-item"><NavLink className="nav-link" to="/gallery">Gallery</NavLink></li>
-        {isAuth ? <li className="nav-item"><NavLink className="nav-link" to="/admin">Admin</NavLink></li> : <button onClick={handleLogin} className="btn btn-outline-primary">Login</button>}
+
+        {isAuth ? (
+          <li className="nav-item">
+            <NavLink className="nav-link" to="/admin">Admin</NavLink>
+          </li>
+        ) : (
+          <button onClick={handleLogin} className="btn btn-outline-primary">
+            Login
+          </button>
+        )}
       </ul>
 
       <Routes>
@@ -34,7 +43,13 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/gallery" element={<Gallery />} />
         <Route path="/users/:id" element={<User />} />
-        <Route path="/admin" element={<Admin isAuth={isAuth} setIsAuth={setIsAuth} />} />
+        <Route path="/admin" element={<Admin isAuth={isAuth} setIsAuth={setIsAuth} />}>
+          <Route index element={<h2>Admin page</h2>} />
+          <Route path="sign-in" element={<div className='d-flex flex-column'><h2>Sign in</h2></div>} />
+          <Route path="sign-up" element={<h2>Sign up</h2>} />
+          <Route path="forgot-password" element={<h2>Forgot password</h2>} />
+        </Route>
+
         <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
